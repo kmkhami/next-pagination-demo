@@ -2,20 +2,33 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'  
 
 export default function PaginatedTable() {
-  const [plans, setPlans] = useState(null)
+  const [plans, setPlans] = useState([])
   const [page, setPage] = useState(1)
   const [items, setItems] = useState(0)
+  const [loading, setLoading] = useState(false)
 
-  if(!plans) {
+  function plansRequest() {
+    setLoading(true)
     axios.post('/api/plans', {
       page: page
     }).then(resp => {
       setTimeout(() => {
         setPlans(resp.data.plans)
         setItems(resp.data.total)
+        setLoading(false)
       }, 1000)
     })
+  }
+  
+  useEffect(() => {
+    plansRequest()
+  }, [page]);
 
+  if(!plans) {
+    plansRequest()
+  }
+
+  if(loading) {
     return (
       <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
         <div className="animate-pulse flex space-x-4">
@@ -111,7 +124,6 @@ export default function PaginatedTable() {
               onClick={() => {
                   if(page > 1) {
                     setPage(page - 1)
-                    setPlans(null)
                   }
                 }
               }
@@ -122,8 +134,9 @@ export default function PaginatedTable() {
               href="#"
               className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               onClick={() => {
-                  setPage(page + 1)
-                  setPlans(null)
+                  if(10*page < items) {
+                    setPage(page + 1)
+                  }
                 }
               }
             >
