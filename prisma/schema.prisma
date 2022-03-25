@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ar_internal_metadata {
+  key        String   @id @db.VarChar
+  value      String?  @db.VarChar
+  created_at DateTime @db.Timestamp(6)
+  updated_at DateTime @db.Timestamp(6)
+}
+
+model plans {
+  id                  String    @id @default(cuid())
+  merchant_id         String   @db.VarChar
+  name                String?  @db.VarChar
+  frequency           String?  @db.VarChar
+  day                 String?  @db.VarChar
+  amount              Int?
+  callback_url        String?  @db.VarChar
+  email_reports       Boolean?
+  rule_uuid           String?  @db.VarChar
+  strategy_uuid       String?  @db.VarChar
+  receipt_template_id String?  @db.VarChar
+  metadata            Json     @default("{}")
+  created_at          DateTime @db.Timestamp(6)
+  updated_at          DateTime @db.Timestamp(6)
+}
