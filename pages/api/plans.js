@@ -18,16 +18,25 @@ const plans = [
 
 const pageSize = 10
 
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient();
+
 export default async (req, res) => {
   if (req.body) {
     const data = req.body
     const offset = pageSize * (data.page - 1)
 
-    const responseObject = {
-      plans: plans.slice(offset, offset + pageSize),
-      total: 15
-    }
+    const plans = await prisma.plans.findMany({
+        skip: 0,
+        take: 10
+      })
 
+    const total = await prisma.plans.count()
+
+    const responseObject = {
+      plans: plans,
+      total: total
+    }
 
     res.status(200).json(responseObject)
   } else {
