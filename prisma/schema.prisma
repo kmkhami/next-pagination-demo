@@ -15,7 +15,7 @@ model ar_internal_metadata {
 }
 
 model plans {
-  id                  BigInt   @id @default(autoincrement())
+  id                  String    @id @default(cuid())
   merchant_id         String   @db.VarChar
   name                String?  @db.VarChar
   frequency           String?  @db.VarChar

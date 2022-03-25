@@ -87,21 +87,21 @@ export default function PaginatedTable() {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {plans.map((plan) => (
-              <tr key={plan.Id}>
+              <tr key={plan.id}>
                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                  {'$' + plan.Amount}
+                  {'$' + plan.amount}
                 </td>
                 <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                  {plan.Name}
+                  {plan.name}
                 </td>
                 <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">
-                  {plan.EmailAddress}
+                  {plan.email_reports ? 'Yes' : 'No'}
                 </td>
                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {plan.Email}
+                  {plan.updated_at}
                 </td>
                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {plan.Id}
+                  {plan.id}
                 </td>
               </tr>
             ))}

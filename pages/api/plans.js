@@ -27,8 +27,8 @@ export default async (req, res) => {
     const offset = pageSize * (data.page - 1)
 
     const plans = await prisma.plans.findMany({
-        skip: 0,
-        take: 10
+        skip: offset,
+        take: pageSize
       })
 
     const total = await prisma.plans.count()
