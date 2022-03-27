@@ -39,7 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
     * No, not really. The general structure could be kept but Prisma does not perfectly understand the data in its existing form. We would have to use a custom adapter to make that work. However, we would be able to replicate the structure of the databases 1:1. This would make the creation of new pages/endpoints very easy since we would have the ability to copy what we already have from the Gateway projects. 
 
 2. Can we deploy with AWS Amplify? 
-    * Yes, we can. However there are some caveats. Amplify is 1yr behind with Next so it's on version 11 and Next is currently on version 12. This means that we lose out on some speed improvements that have been made. Additionally, adding environment variables is a hassle since we have to use a workarond for Amplify. Overall, I did not find it as easy to use as Vercel, but it was doable. 
+    * Yes, we can. However there are some caveats. Amplify is 1yr behind with Next so it's on version 11 and Next is currently on version 12. This means that we lose out on some speed improvements that have been made. Additionally, adding environment variables is a hassle since we have to use a workarond for Amplify. Additionally, Amplify does integrate with Github as well. Overall, I did not find it as easy to use as Vercel, but it was doable. 
 
 3. Is Tailwind viable? 
     * Yes, extremely viable. I found it very quick/easy to learn and a massive time-savings compared to writing custom css. 
