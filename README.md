@@ -49,3 +49,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 5. What I did leave on the table when it comes to trying Next? 
     * I wish that I tried out the [Dynamic Routes](https://nextjs.org/docs/routing/dynamic-routes). I think they make the creation of views a whole lot easier and I just should have taken some time to try it. 
+
+6. Prisma migrations? 
+    * I don't totally get how we would do these in production. We would have to take the time to setup a local database for testing which I didn't do. Right now the only way to run migrations is to do them against the production dbs which is very risky. 
