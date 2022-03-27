@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'  
+import CreatePlanModal from './CreatePlanModal.js'
+import Loading from '../utility/LoadingAnimation'
 
 export default function PaginatedTable() {
   const [plans, setPlans] = useState([])
   const [page, setPage] = useState(1)
   const [items, setItems] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [modalCount, setModalCount] = useState(0)
 
   function plansRequest() {
     setLoading(true)
-    axios.post('/api/plans', {
+    setModalCount(0)
+    axios.post('/api/plans/getall', {
       page: page
     }).then(resp => {
       setTimeout(() => {
@@ -30,35 +34,31 @@ export default function PaginatedTable() {
 
   if(loading) {
     return (
-      <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-        <div className="animate-pulse flex space-x-4">
-          <div className="rounded-full bg-slate-200 h-10 w-10"></div>
-          <div className="flex-1 space-y-6 py-1">
-            <div className="h-2 bg-slate-200 rounded"></div>
-            <div className="space-y-3">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="h-2 bg-slate-200 rounded col-span-2"></div>
-                <div className="h-2 bg-slate-200 rounded col-span-1"></div>
-              </div>
-              <div className="h-2 bg-slate-200 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Loading />
     )
   }
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+      <CreatePlanModal modalCount={modalCount} />
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Users</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Plans</h1>
           <p className="mt-2 text-sm text-gray-700">
             A list of all the plans in your account including their name, title, email and role.
           </p>
+          <div className="min-w-full mt-2 justify-end content-end items-end place-content-end place-items-end grid grid-cols-1">
+            <button
+              type="button"
+              className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-900"
+              onClick={() => setModalCount(modalCount + 1)}
+            >
+              Create Plan
+            </button>
+          </div>
         </div>
       </div>
-      <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+      <div className="-mx-4 mt-6 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-gray-50">
             <tr>
