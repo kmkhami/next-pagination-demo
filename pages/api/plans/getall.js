@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export default async (req, res) => {
   if (req.body) {
     const data = req.body
-    const offset = pageSize * (data.page - 1)
+    const offset = pageSize * (parseInt(data.page) - 1)
 
     const plans = await prisma.plans.findMany({
         skip: offset,
